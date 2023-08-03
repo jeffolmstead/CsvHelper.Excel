@@ -26,7 +26,7 @@ namespace CsvHelper.Excel
 
         public override int Index => _index;
         public override int Row => _row;
-
+        
         /// <summary>
         /// Initializes a new instance of the <see cref="ExcelWriter"/> class.
         /// </summary>
@@ -86,9 +86,21 @@ namespace CsvHelper.Excel
         /// <param name="culture">The culture.</param>
         /// <param name="leaveOpen"><c>true</c> to leave the <see cref="TextWriter"/> open after the <see cref="ExcelWriter"/> object is disposed, otherwise <c>false</c>.</param>
         public ExcelWriter(Stream stream, string sheetName, CultureInfo culture, bool leaveOpen = false) : this(stream,
-            sheetName, new CsvConfiguration(culture))
+            sheetName, new CsvConfiguration(culture), leaveOpen)
         {
             
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ExcelWriter"/> class.
+        /// </summary>
+        /// <param name="path">The path.</param>
+        /// <param name="sheetName">The sheet name</param>
+        /// <param name="configuration">The configuration.</param>
+        /// <param name="leaveOpen"><c>true</c> to leave the <see cref="TextWriter"/> open after the <see cref="ExcelWriter"/> object is disposed, otherwise <c>false</c>.</param>
+        public ExcelWriter(string path, string sheetName, CsvConfiguration configuration, bool leaveOpen = false) : this(
+            File.Open(path, FileMode.OpenOrCreate, FileAccess.Write), sheetName, configuration, leaveOpen)
+        {
         }
 
         /// <summary>
